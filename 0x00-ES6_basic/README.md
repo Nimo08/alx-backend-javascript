@@ -1,1 +1,0 @@
-This directory contains scripts for the tasks in 0x00-ES6_basic.
