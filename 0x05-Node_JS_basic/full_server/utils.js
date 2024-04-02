@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 
 async function readDatabase(path) {
   try {
