@@ -41,13 +41,14 @@ app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
 });
 
-app.get('/students', async (req, res) => {
-  try {
-    const data = await countStudents(process.argv[2]);
-    res.send(data);
-  } catch (error) {
-    res.status(404).send(`This is the list of our students\n${error.message}`);
-  }
+app.get('/students', (req, res) => {
+  countStudents(process.argv[2])
+    .then((data) => {
+      res.send(`This is the list of our students\n${data}`);
+    })
+    .catch((error) => {
+      res.status(404).send(`This is the list of our students\n${error.message}`);
+    });
 });
 
 app.listen(port, () => {
