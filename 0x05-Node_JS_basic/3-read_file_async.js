@@ -1,5 +1,5 @@
 // Reading a file asynchronously with Node JS
-const fs = require('fs');
+const fs = require('fs').promises;
 
 async function countStudents(path) {
   return new Promise((resolve, reject) => {
