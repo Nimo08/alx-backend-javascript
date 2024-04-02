@@ -1,0 +1,1 @@
+This directory contains the scripts for tasks in 0x05-Node_JS_basic.
