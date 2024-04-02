@@ -1,4 +1,3 @@
-// Create a more complex HTTP server using Node's HTTP module
 const http = require('http');
 const fs = require('fs').promises;
 
@@ -24,12 +23,14 @@ async function countStudents(path) {
           fieldLists[fieldValue].push(values[0]);
         }
 
-        console.log(`Number of students: ${lines.length - 1}`);
+        // Prepare the output
+        let output = `This is the list of our students\nNumber of students: ${lines.length - 1}\n`;
+
         Object.keys(counts).forEach((field) => {
-          console.log(`Number of students in ${field}: ${counts[field]}. List: ${fieldLists[field].join(', ')}`);
+          output += `Number of students in ${field}: ${counts[field]}. List: ${fieldLists[field].join(', ')}\n`;
         });
 
-        resolve();
+        resolve(output);
       })
       .catch(() => {
         reject(new Error('Cannot load the database'));
@@ -42,15 +43,14 @@ const app = http.createServer(async (req, res) => {
     res.writeHead(200);
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    countStudents(process.argv[2])
-      .then((data) => {
-        res.writeHead(200);
-        res.end(`This is the list of our students\n${data}`);
-      })
-      .catch((error) => {
-        res.writeHead(404);
-        res.end(`This is the list of our students\n${error.message}`);
-      });
+    try {
+      const data = await countStudents(process.argv[2]);
+      res.writeHead(200);
+      res.end(data);
+    } catch (error) {
+      res.writeHead(404);
+      res.end(`This is the list of our students\n${error.message}`);
+    }
   } else {
     res.writeHead(404);
     res.end('Not found');
