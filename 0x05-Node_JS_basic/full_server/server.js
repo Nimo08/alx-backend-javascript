@@ -6,3 +6,4 @@ app.use(router);
 app.listen(1245);
 
 export default app;
+module.exports = app;

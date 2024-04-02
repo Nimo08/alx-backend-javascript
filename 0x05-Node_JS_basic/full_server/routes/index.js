@@ -11,3 +11,4 @@ router.get('/students', StudentsController.getAllStudents);
 router.get('/students/:major', StudentsController.getAllStudentsByMajor);
 
 export default router;
+module.exports = router;
