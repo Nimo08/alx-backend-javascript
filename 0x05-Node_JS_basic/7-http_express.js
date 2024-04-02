@@ -4,7 +4,7 @@ const fs = require('fs').promises;
 const app = express();
 const port = 1245;
 
-const countStudents = async (path) => {
+async function countStudents(path) {
   try {
     const data = await fs.readFile(path, 'utf-8');
     const lines = data.split('\n').filter((line) => line.trim() !== '');
@@ -35,7 +35,7 @@ const countStudents = async (path) => {
   } catch (error) {
     throw new Error('Cannot load the database');
   }
-};
+}
 
 app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
